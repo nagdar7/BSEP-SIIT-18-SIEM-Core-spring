@@ -1,0 +1,21 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ALARM_STATUS",
+            "fieldValues": "ACTIVE,NOT_ACTIVE"
+        }
+    ],
+    "changelogDate": "20180402145412",
+    "entityTableName": "alarm",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

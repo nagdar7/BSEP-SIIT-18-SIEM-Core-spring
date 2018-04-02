@@ -1,0 +1,34 @@
+
+<div *ngIf="log">
+    <h2><span>Log</span> {{log.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Facility</span></dt>
+        <dd>
+            <span>{{log.facility}}</span>
+        </dd>
+        <dt><span>Severnity</span></dt>
+        <dd>
+            <span>{{log.severnity}}</span>
+        </dd>
+        <dt><span>Message</span></dt>
+        <dd>
+            <span>{{log.message}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'log/'+ log.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
