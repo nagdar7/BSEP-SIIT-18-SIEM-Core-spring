@@ -39,6 +39,8 @@ describe('Agent e2e test', () => {
         expect(agentDialogPage.getDescriptionInput()).toMatch('description');
         agentDialogPage.setFilterExpressionInput('filterExpression');
         expect(agentDialogPage.getFilterExpressionInput()).toMatch('filterExpression');
+        agentDialogPage.setApi_keyInput('api_key');
+        expect(agentDialogPage.getApi_keyInput()).toMatch('api_key');
         agentDialogPage.save();
         expect(agentDialogPage.getSaveButton().isPresent()).toBeFalsy();
     });
@@ -68,6 +70,7 @@ export class AgentDialogPage {
     directoryInput = element(by.css('input#field_directory'));
     descriptionInput = element(by.css('input#field_description'));
     filterExpressionInput = element(by.css('input#field_filterExpression'));
+    api_keyInput = element(by.css('input#field_api_key'));
 
     getModalTitle() {
         return this.modalTitle.getText();
@@ -95,6 +98,14 @@ export class AgentDialogPage {
 
     getFilterExpressionInput = function() {
         return this.filterExpressionInput.getAttribute('value');
+    }
+
+    setApi_keyInput = function(api_key) {
+        this.api_keyInput.sendKeys(api_key);
+    }
+
+    getApi_keyInput = function() {
+        return this.api_keyInput.getAttribute('value');
     }
 
     save() {

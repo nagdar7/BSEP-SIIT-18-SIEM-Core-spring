@@ -45,13 +45,15 @@ public class LogResource {
     /**
      * POST  /logs : Create a new log.
      *
-     * @param logDTO the logDTO to create
+     * @param logs the logDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new logDTO, or with status 400 (Bad Request) if the log has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/logs")
     @Timed
-    public ResponseEntity<LogDTO> createLog(@RequestBody LogDTO logDTO) throws URISyntaxException {
+    public ResponseEntity<LogDTO> createLog(@RequestBody String logs) throws URISyntaxException {
+        LogDTO logDTO = new LogDTO();
+        logDTO.setMessage(logs);
         log.debug("REST request to save Log : {}", logDTO);
         if (logDTO.getId() != null) {
             throw new BadRequestAlertException("A new log cannot already have an ID", ENTITY_NAME, "idexists");
@@ -76,7 +78,7 @@ public class LogResource {
     public ResponseEntity<LogDTO> updateLog(@RequestBody LogDTO logDTO) throws URISyntaxException {
         log.debug("REST request to update Log : {}", logDTO);
         if (logDTO.getId() == null) {
-            return createLog(logDTO);
+            return createLog(logDTO.getMessage());
         }
         LogDTO result = logService.save(logDTO);
         return ResponseEntity.ok()

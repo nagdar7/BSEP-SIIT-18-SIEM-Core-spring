@@ -49,6 +49,9 @@ public class AgentResourceIntTest {
     private static final String DEFAULT_FILTER_EXPRESSION = "AAAAAAAAAA";
     private static final String UPDATED_FILTER_EXPRESSION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_API_KEY = "AAAAAAAAAA";
+    private static final String UPDATED_API_KEY = "BBBBBBBBBB";
+
     @Autowired
     private AgentRepository agentRepository;
 
@@ -95,7 +98,8 @@ public class AgentResourceIntTest {
         Agent agent = new Agent()
             .directory(DEFAULT_DIRECTORY)
             .description(DEFAULT_DESCRIPTION)
-            .filterExpression(DEFAULT_FILTER_EXPRESSION);
+            .filterExpression(DEFAULT_FILTER_EXPRESSION)
+            .api_key(DEFAULT_API_KEY);
         return agent;
     }
 
@@ -124,6 +128,7 @@ public class AgentResourceIntTest {
         assertThat(testAgent.getDirectory()).isEqualTo(DEFAULT_DIRECTORY);
         assertThat(testAgent.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAgent.getFilterExpression()).isEqualTo(DEFAULT_FILTER_EXPRESSION);
+        assertThat(testAgent.getApi_key()).isEqualTo(DEFAULT_API_KEY);
 
         // Validate the Agent in Elasticsearch
         Agent agentEs = agentSearchRepository.findOne(testAgent.getId());
@@ -150,6 +155,24 @@ public class AgentResourceIntTest {
     }
 
     @Test
+    public void checkApi_keyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = agentRepository.findAll().size();
+        // set the field null
+        agent.setApi_key(null);
+
+        // Create the Agent, which fails.
+        AgentDTO agentDTO = agentMapper.toDto(agent);
+
+        restAgentMockMvc.perform(post("/api/agents")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(agentDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Agent> agentList = agentRepository.findAll();
+        assertThat(agentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllAgents() throws Exception {
         // Initialize the database
         agentRepository.save(agent);
@@ -161,7 +184,8 @@ public class AgentResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(agent.getId())))
             .andExpect(jsonPath("$.[*].directory").value(hasItem(DEFAULT_DIRECTORY.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].filterExpression").value(hasItem(DEFAULT_FILTER_EXPRESSION.toString())));
+            .andExpect(jsonPath("$.[*].filterExpression").value(hasItem(DEFAULT_FILTER_EXPRESSION.toString())))
+            .andExpect(jsonPath("$.[*].api_key").value(hasItem(DEFAULT_API_KEY.toString())));
     }
 
     @Test
@@ -176,7 +200,8 @@ public class AgentResourceIntTest {
             .andExpect(jsonPath("$.id").value(agent.getId()))
             .andExpect(jsonPath("$.directory").value(DEFAULT_DIRECTORY.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.filterExpression").value(DEFAULT_FILTER_EXPRESSION.toString()));
+            .andExpect(jsonPath("$.filterExpression").value(DEFAULT_FILTER_EXPRESSION.toString()))
+            .andExpect(jsonPath("$.api_key").value(DEFAULT_API_KEY.toString()));
     }
 
     @Test
@@ -198,7 +223,8 @@ public class AgentResourceIntTest {
         updatedAgent
             .directory(UPDATED_DIRECTORY)
             .description(UPDATED_DESCRIPTION)
-            .filterExpression(UPDATED_FILTER_EXPRESSION);
+            .filterExpression(UPDATED_FILTER_EXPRESSION)
+            .api_key(UPDATED_API_KEY);
         AgentDTO agentDTO = agentMapper.toDto(updatedAgent);
 
         restAgentMockMvc.perform(put("/api/agents")
@@ -213,6 +239,7 @@ public class AgentResourceIntTest {
         assertThat(testAgent.getDirectory()).isEqualTo(UPDATED_DIRECTORY);
         assertThat(testAgent.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAgent.getFilterExpression()).isEqualTo(UPDATED_FILTER_EXPRESSION);
+        assertThat(testAgent.getApi_key()).isEqualTo(UPDATED_API_KEY);
 
         // Validate the Agent in Elasticsearch
         Agent agentEs = agentSearchRepository.findOne(testAgent.getId());
@@ -271,7 +298,8 @@ public class AgentResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(agent.getId())))
             .andExpect(jsonPath("$.[*].directory").value(hasItem(DEFAULT_DIRECTORY.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].filterExpression").value(hasItem(DEFAULT_FILTER_EXPRESSION.toString())));
+            .andExpect(jsonPath("$.[*].filterExpression").value(hasItem(DEFAULT_FILTER_EXPRESSION.toString())))
+            .andExpect(jsonPath("$.[*].api_key").value(hasItem(DEFAULT_API_KEY.toString())));
     }
 
     @Test

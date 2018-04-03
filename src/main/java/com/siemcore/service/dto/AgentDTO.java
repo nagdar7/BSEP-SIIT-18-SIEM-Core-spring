@@ -1,6 +1,7 @@
 package com.siemcore.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,6 +17,9 @@ public class AgentDTO implements Serializable {
     private String description;
 
     private String filterExpression;
+
+    @NotNull
+    private String api_key;
 
     public String getId() {
         return id;
@@ -49,6 +53,14 @@ public class AgentDTO implements Serializable {
         this.filterExpression = filterExpression;
     }
 
+    public String getApi_key() {
+        return api_key;
+    }
+
+    public void setApi_key(String api_key) {
+        this.api_key = api_key;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,6 +89,7 @@ public class AgentDTO implements Serializable {
             ", directory='" + getDirectory() + "'" +
             ", description='" + getDescription() + "'" +
             ", filterExpression='" + getFilterExpression() + "'" +
+            ", api_key='" + getApi_key() + "'" +
             "}";
     }
 }

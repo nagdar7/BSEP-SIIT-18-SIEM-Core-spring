@@ -3,6 +3,7 @@ package com.siemcore.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -27,6 +28,10 @@ public class Agent implements Serializable {
 
     @Field("filter_expression")
     private String filterExpression;
+
+    @NotNull
+    @Field("api_key")
+    private String api_key;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -75,6 +80,19 @@ public class Agent implements Serializable {
     public void setFilterExpression(String filterExpression) {
         this.filterExpression = filterExpression;
     }
+
+    public String getApi_key() {
+        return api_key;
+    }
+
+    public Agent api_key(String api_key) {
+        this.api_key = api_key;
+        return this;
+    }
+
+    public void setApi_key(String api_key) {
+        this.api_key = api_key;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -104,6 +122,7 @@ public class Agent implements Serializable {
             ", directory='" + getDirectory() + "'" +
             ", description='" + getDescription() + "'" +
             ", filterExpression='" + getFilterExpression() + "'" +
+            ", api_key='" + getApi_key() + "'" +
             "}";
     }
 }

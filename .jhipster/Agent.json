@@ -13,12 +13,19 @@
         {
             "fieldName": "filterExpression",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "api_key",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20180402145410",
-    "entityTableName": "agent",
     "dto": "mapstruct",
-    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "entityTableName": "agent",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
 }

@@ -27,6 +27,17 @@
             <input type="text" class="form-control" name="filterExpression" id="field_filterExpression"
                 [(ngModel)]="agent.filterExpression" />
         </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_api_key">Api Key</label>
+            <input type="text" class="form-control" name="api_key" id="field_api_key"
+                [(ngModel)]="agent.api_key" required/>
+            <div [hidden]="!(editForm.controls.api_key?.dirty && editForm.controls.api_key?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.api_key?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
 
     </div>
     <div class="modal-footer">
