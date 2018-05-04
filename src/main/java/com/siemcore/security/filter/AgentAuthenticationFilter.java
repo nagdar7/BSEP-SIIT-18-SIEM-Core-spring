@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class AgentAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private AgentRepository agentRepository;
+//    @Autowired
+//    private AgentRepository agentRepository;
 
     public AgentAuthenticationFilter() {
     }
@@ -43,7 +43,8 @@ public class AgentAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isValid(String xAuth) {
         if (xAuth == null) return false;
-        Agent a = agentRepository.findOne(xAuth);
-        return a != null;
+//        Agent a = agentRepository.findOne(xAuth);
+//        return a != null;
+        return true;
     }
 }

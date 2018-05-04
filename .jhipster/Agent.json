@@ -15,7 +15,7 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "api_key",
+            "fieldName": "apiKey",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"

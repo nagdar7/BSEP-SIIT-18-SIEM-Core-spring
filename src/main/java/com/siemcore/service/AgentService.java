@@ -34,6 +34,14 @@ public interface AgentService {
     AgentDTO findOne(String id);
 
     /**
+     * Get the "key" agent.
+     *
+     * @param key the key of the entity
+     * @return the entity
+     */
+    AgentDTO findOneByApiKey(String key);
+
+    /**
      * Delete the "id" agent.
      *
      * @param id the id of the entity
@@ -44,7 +52,7 @@ public interface AgentService {
      * Search for the agent corresponding to the query.
      *
      * @param query the query of the search
-     * 
+     *
      * @param pageable the pagination information
      * @return the list of entities
      */

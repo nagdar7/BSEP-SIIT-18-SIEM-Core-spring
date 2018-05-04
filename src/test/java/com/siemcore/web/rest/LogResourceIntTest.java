@@ -4,6 +4,7 @@ import com.siemcore.SiemCoreApp;
 
 import com.siemcore.domain.Log;
 import com.siemcore.repository.LogRepository;
+import com.siemcore.service.AgentService;
 import com.siemcore.service.LogService;
 import com.siemcore.repository.search.LogSearchRepository;
 import com.siemcore.service.dto.LogDTO;
@@ -59,6 +60,9 @@ public class LogResourceIntTest {
     private LogService logService;
 
     @Autowired
+    private AgentService agentService;
+
+    @Autowired
     private LogSearchRepository logSearchRepository;
 
     @Autowired
@@ -77,7 +81,7 @@ public class LogResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LogResource logResource = new LogResource(logService);
+        final LogResource logResource = new LogResource(logService, agentService);
         this.restLogMockMvc = MockMvcBuilders.standaloneSetup(logResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

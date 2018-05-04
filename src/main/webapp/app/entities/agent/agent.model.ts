@@ -6,7 +6,7 @@ export class Agent implements BaseEntity {
         public directory?: string,
         public description?: string,
         public filterExpression?: string,
-        public api_key?: string,
+        public apiKey?: string,
     ) {
     }
 }

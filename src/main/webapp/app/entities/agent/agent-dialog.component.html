@@ -28,12 +28,12 @@
                 [(ngModel)]="agent.filterExpression" />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_api_key">Api Key</label>
-            <input type="text" class="form-control" name="api_key" id="field_api_key"
-                [(ngModel)]="agent.api_key" required/>
-            <div [hidden]="!(editForm.controls.api_key?.dirty && editForm.controls.api_key?.invalid)">
+            <label class="form-control-label" for="field_apiKey">Api Key</label>
+            <input type="text" class="form-control" name="apiKey" id="field_apiKey"
+                [(ngModel)]="agent.apiKey" required/>
+            <div [hidden]="!(editForm.controls.apiKey?.dirty && editForm.controls.apiKey?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.api_key?.errors?.required">
+                   [hidden]="!editForm.controls.apiKey?.errors?.required">
                    This field is required.
                 </small>
             </div>

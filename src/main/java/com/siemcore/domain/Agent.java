@@ -31,7 +31,7 @@ public class Agent implements Serializable {
 
     @NotNull
     @Field("api_key")
-    private String api_key;
+    private String apiKey;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -81,17 +81,17 @@ public class Agent implements Serializable {
         this.filterExpression = filterExpression;
     }
 
-    public String getApi_key() {
-        return api_key;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public Agent api_key(String api_key) {
-        this.api_key = api_key;
+    public Agent apiKey(String apiKey) {
+        this.apiKey = apiKey;
         return this;
     }
 
-    public void setApi_key(String api_key) {
-        this.api_key = api_key;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -122,7 +122,7 @@ public class Agent implements Serializable {
             ", directory='" + getDirectory() + "'" +
             ", description='" + getDescription() + "'" +
             ", filterExpression='" + getFilterExpression() + "'" +
-            ", api_key='" + getApi_key() + "'" +
+            ", apiKey='" + getApiKey() + "'" +
             "}";
     }
 }

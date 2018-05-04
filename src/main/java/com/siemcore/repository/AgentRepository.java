@@ -12,4 +12,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 @Repository
 public interface AgentRepository extends MongoRepository<Agent, String> {
 
+    Agent findFirstByApiKey(String apiKey);
+
 }

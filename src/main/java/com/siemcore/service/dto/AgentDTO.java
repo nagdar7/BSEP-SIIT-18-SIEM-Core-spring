@@ -19,7 +19,7 @@ public class AgentDTO implements Serializable {
     private String filterExpression;
 
     @NotNull
-    private String api_key;
+    private String apiKey;
 
     public String getId() {
         return id;
@@ -53,12 +53,12 @@ public class AgentDTO implements Serializable {
         this.filterExpression = filterExpression;
     }
 
-    public String getApi_key() {
-        return api_key;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApi_key(String api_key) {
-        this.api_key = api_key;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class AgentDTO implements Serializable {
             ", directory='" + getDirectory() + "'" +
             ", description='" + getDescription() + "'" +
             ", filterExpression='" + getFilterExpression() + "'" +
-            ", api_key='" + getApi_key() + "'" +
+            ", apiKey='" + getApiKey() + "'" +
             "}";
     }
 }

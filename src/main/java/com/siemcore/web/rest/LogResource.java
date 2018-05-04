@@ -1,7 +1,9 @@
 package com.siemcore.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.siemcore.service.AgentService;
 import com.siemcore.service.LogService;
+import com.siemcore.service.dto.AgentDTO;
 import com.siemcore.web.rest.errors.BadRequestAlertException;
 import com.siemcore.web.rest.util.HeaderUtil;
 import com.siemcore.web.rest.util.PaginationUtil;
@@ -38,8 +40,11 @@ public class LogResource {
 
     private final LogService logService;
 
-    public LogResource(LogService logService) {
+    private final AgentService agentService;
+
+    public LogResource(LogService logService, AgentService agentService) {
         this.logService = logService;
+        this.agentService = agentService;
     }
 
     /**
@@ -51,7 +56,11 @@ public class LogResource {
      */
     @PostMapping("/logs")
     @Timed
-    public ResponseEntity<LogDTO> createLog(@RequestBody String logs) throws URISyntaxException {
+    public ResponseEntity<LogDTO> createLog(@RequestBody String logs,
+                                            @RequestHeader("Authorization") String api) throws URISyntaxException {
+        if (api == null) throw new SecurityException("Api key not valid!");
+        AgentDTO agentDTO = agentService.findOneByApiKey(api);
+        if (agentDTO == null) throw new SecurityException("Api key not valid!");
         LogDTO logDTO = new LogDTO();
         logDTO.setMessage(logs);
         log.debug("REST request to save Log : {}", logDTO);
@@ -78,7 +87,7 @@ public class LogResource {
     public ResponseEntity<LogDTO> updateLog(@RequestBody LogDTO logDTO) throws URISyntaxException {
         log.debug("REST request to update Log : {}", logDTO);
         if (logDTO.getId() == null) {
-            return createLog(logDTO.getMessage());
+            return createLog(logDTO.getMessage(), "");
         }
         LogDTO result = logService.save(logDTO);
         return ResponseEntity.ok()

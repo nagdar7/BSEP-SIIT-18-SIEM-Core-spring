@@ -78,6 +78,19 @@ public class AgentServiceImpl implements AgentService{
     }
 
     /**
+     * Get one agent by api key.
+     *
+     * @param key the key of the entity
+     * @return the entity
+     */
+    @Override
+    public AgentDTO findOneByApiKey(String key) {
+        log.debug("Request to get Agent key : {}", key);
+        Agent agent = agentRepository.findFirstByApiKey(key);
+        return agentMapper.toDto(agent);
+    }
+
+    /**
      * Delete the agent by id.
      *
      * @param id the id of the entity
